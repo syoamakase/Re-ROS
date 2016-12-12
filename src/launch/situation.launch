@@ -1,0 +1,13 @@
+<launch>
+  <arg name="world_file"  default="$(arg dir)/worlds/empty.world"/>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <node pkg="re_ros_act1" name="action1" type="action1.py" />
+  <node pkg="re_ros_act2" name="action2" type="action2.py" />
+  <node pkg="re_ros_reward" name="reward" type="reward.py" />
+  <node pkg="re_ros_state" name="state" type="state.py" />
+
+</launch>
