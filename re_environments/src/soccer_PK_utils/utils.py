@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -102,4 +101,5 @@ def reset_simulation(robot_x=0,robot_y=0,robot_angle=0,ball_x=1,ball_y=0):
     set_model_srv = rospy.ServiceProxy('gazebo/set_model_state', SetModelState)
     set_model_srv.call(modelstate)
     rospy.loginfo("reset simulation")
+
 
