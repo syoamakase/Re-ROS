@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find re_environments)/launch/test.launch"/>
+
+  <include file="$(find re_agent)/launch/re_turtlebot.launch"/>
+
+</launch>
