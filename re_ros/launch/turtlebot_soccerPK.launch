@@ -2,5 +2,7 @@
   <include file="$(find re_environments)/launch/test.launch"/>
 
   <include file="$(find re_agent)/launch/re_turtlebot.launch"/>
+  
+  <include file="$(find re_rule)/launch/accumulator.launch"/>
 
 </launch>

@@ -19,6 +19,9 @@
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
       <param name="publish_frequency" type="double" value="30.0" />
     </node>
+    <node pkg="re_agent" name="random_walk" type="random_walk.py" />
+    <node pkg="re_agent" name="dqn_walk" type="dqn_walk.py" />
+    <node pkg="re_agent" name="suppressor" type="suppressor.py" />
   </group>
 
   <!-- Fake laser -->
@@ -31,5 +34,7 @@
     <remap from="image" to="/camera/depth/image_raw"/>
     <remap from="scan" to="/scan"/>
   </node>
+
+
 
 </launch> 
