@@ -8,7 +8,9 @@ import cv2
 from cv_bridge import CvBridge, CvBridgeError
 
 from chainer import links as L
+from chainer import optimizers
 from chainerrl import links
+from chainerrl import replay_buffer
 from chainerrl.action_value import DiscreteActionValue
 from dqn import DQN
 from network import NatureDQNHead

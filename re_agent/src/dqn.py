@@ -2,15 +2,11 @@ from chainerrl import agents
 from logging import getLogger
 from chainerrl.misc.batch_states import batch_states
 from chainerrl.misc.copy_param import synchronize_parameters
-from chainerrl.recurrent import Recurrent
-from chainerrl.recurrent import state_reset
-from chainerrl.replay_buffer import batch_experiences
 from chainer import cuda
 import chainer.functions as F
 import chainer
 import cv2
 import numpy as np
-import math
 import copy
 
 class DQN(agents.double_dqn.DoubleDQN):
