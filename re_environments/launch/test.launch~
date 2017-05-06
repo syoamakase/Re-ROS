@@ -10,7 +10,5 @@
   </include>
   
   <!-- spawn a soccer ball -->
-   <node name="soccer_ball" pkg="gazebo_ros" type="spawn_model" args="-file $(find re_environments)/worlds/models/soccer_ball/model.sdf -sdf -x 3.25 -y 0 -model soccer_ball" />
-
-   <node pkg="re_environments" name="reward" type="soccer_PK_reward.py" />
+   <node name="soccer_ball" pkg="gazebo_ros" type="spawn_model" args="-file $(find re_environments)/worlds/models/soccer_ball/model.sdf -sdf -x 1 -y 0 -model soccer_ball__" />
 </launch>
