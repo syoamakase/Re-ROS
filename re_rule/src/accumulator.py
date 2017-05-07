@@ -49,13 +49,28 @@ class Accumulator(object):
             self.lock["dqn"] = False
             
 accumulator = Accumulator()
-sub_rand_walk = rospy.Subscriber("/agent1/rand_act", Int16, accumulator.call_back_rand_walk)
+#sub_rand_walk = rospy.Subscriber("/agent1/rand_act", Int16, accumulator.call_back_rand_walk)
 sub_dqn_walk = rospy.Subscriber("/agent1/dqn_act", Int16, accumulator.call_back_dqn)
-sub_suppress = rospy.Subscriber("/agent1/suppress_act", Int16, accumulator.call_back_suppress)
+#sub_suppress = rospy.Subscriber("/agent1/suppress_act", Int16, accumulator.call_back_suppress)
 rate = rospy.Rate(3)
 while not rospy.is_shutdown():
-    # ga.control_action(accumulator.act_id)
     pub = rospy.Publisher('/agent1/mobile_base/commands/velocity', Twist, queue_size=10)
     vel = Twist()
+    # rospy.logwarn(accumulator.act_id)
+    if accumulator.act_id == 0:
+        # self.move_to_neutral()
+        pass
+    elif accumulator.act_id == 1:
+        # self.move_forward()
+        vel.linear.x = 1.0
+    elif accumulator.act_id == 2:
+        # self.move_backword()
+        vel.linear.x = -1.0
+    elif accumulator.act_id == 3:
+        # self.rotate_right()
+        vel.angular.z = -2.0
+    elif accumulator.act_id == 4:
+        # self.rotate_left()
+        vel.angular.z = 2.0
     pub.publish(vel)
 rate.sleep()

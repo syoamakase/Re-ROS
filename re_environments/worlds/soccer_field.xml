@@ -35,7 +35,7 @@
             <size>4.5 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -48,7 +48,7 @@
         </surface>
       </collision>
       <visual name='Wall_0_Visual_player1'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>4.5 0.15 0.5</size>
@@ -64,7 +64,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>2.25 -3.075 0 0 -0 3.14159</pose>
+      <pose>2.25 -3.075 0 0 -0 3.14159</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -83,7 +83,7 @@
             <size>9 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -96,7 +96,7 @@
         </surface>
       </collision>
       <visual name='Wall_1_Visual_player1'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>4.5 0.15 0.5</size>
@@ -112,7 +112,7 @@
       <!-- for tranparent walls -->
       <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>2.25 3.075 0 0 -0 3.14159</pose>
+      <pose>2.25 3.075 0 0 -0 3.14159</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -130,7 +130,7 @@
             <size>1.9 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -143,7 +143,7 @@
         </surface>
       </collision>
       <visual name='Wall_2_Visual_player1'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1.9 0.15 0.5</size>
@@ -159,7 +159,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>4.55 2.05 0 0 -0 1.5707963267948966</pose>
+      <pose>4.55 2.05 0 0 -0 1.5707963267948966</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -178,7 +178,7 @@
             <size>1.9 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -191,7 +191,7 @@
         </surface>
       </collision>
       <visual name='Wall_3_Visual_player1'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1.9 0.15 0.5</size>
@@ -207,7 +207,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>4.55 -2.05 0 0 -0 1.5707963267948966</pose>
+      <pose>4.55 -2.05 0 0 -0 1.5707963267948966</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -227,7 +227,7 @@
             <size>4.5 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -240,7 +240,7 @@
         </surface>
       </collision>
       <visual name='Wall_0_Visual_player2'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>4.5 0.15 0.5</size>
@@ -256,7 +256,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>-2.25 -3.075 0 0 -0 3.14159</pose>
+      <pose>-2.25 -3.075 0 0 -0 3.14159</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -274,7 +274,7 @@
             <size>4.5 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -287,7 +287,7 @@
         </surface>
       </collision>
       <visual name='Wall_1_Visual_player2'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>4.5 0.15 0.5</size>
@@ -303,7 +303,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>-2.25 3.075 0 0 -0 3.14159</pose>
+      <pose>-2.25 3.075 0 0 -0 3.14159</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -321,7 +321,7 @@
             <size>1.9 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -334,7 +334,7 @@
         </surface>
       </collision>
       <visual name='Wall_2_Visual_player2'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1.9 0.15 0.5</size>
@@ -350,7 +350,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>-4.55 2.05 0 0 -0 1.5707963267948966</pose>
+      <pose>-4.55 2.05 0 0 -0 1.5707963267948966</pose>
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -369,7 +369,7 @@
             <size>1.9 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce/>
@@ -382,7 +382,7 @@
         </surface>
       </collision>
       <visual name='Wall_3_Visual_player2'>
-        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <pose>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1.9 0.15 0.5</size>
@@ -398,7 +398,7 @@
         <!-- for tranparent walls -->
         <!-- <transparency>1.0</transparency> -->
       </visual>
-      <pose frame=''>-4.55 -2.05 0 0 -0 1.5707963267948966</pose>
+      <pose>-4.55 -2.05 0 0 -0 1.5707963267948966</pose>
       
       <velocity_decay>
         <linear>0</linear>
