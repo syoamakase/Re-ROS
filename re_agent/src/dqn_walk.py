@@ -41,7 +41,7 @@ if __name__ == "__main__":
     rbuf = replay_buffer.ReplayBuffer(10 ** 5)
 
     # DQN agent
-    agent = DQN(q_func, opt, rbuf, gpu=True, gamma=0.99,
+    agent = DQN(q_func, opt, rbuf, gpu=0, gamma=0.99,
                 explorer=None, replay_start_size=10 ** 4,
                 target_update_frequency=10 ** 4,
                 update_frequency=n_frame, frame=n_frame)
