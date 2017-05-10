@@ -1,8 +1,8 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import rospy
 from std_msgs.msg import Int16
 
-# from susanoh.environments.gazebo_action import GazeboAction
 from geometry_msgs.msg import Twist
 import numpy as np
 
@@ -13,6 +13,8 @@ target_name = "agent1"
 topic_name_vel = target_name+"/mobile_base/commands/velocity"
 
 # ga = GazeboAction()
+
+__date__ = '2017/05/11'
 
 class Accumulator(object):
     def __init__(self):
@@ -50,13 +52,12 @@ class Accumulator(object):
             
 accumulator = Accumulator()
 #sub_rand_walk = rospy.Subscriber("/agent1/rand_act", Int16, accumulator.call_back_rand_walk)
-sub_dqn_walk = rospy.Subscriber("/agent1/dqn_act", Int16, accumulator.call_back_dqn)
 #sub_suppress = rospy.Subscriber("/agent1/suppress_act", Int16, accumulator.call_back_suppress)
+sub_dqn_walk = rospy.Subscriber("/agent1/dqn_act", Int16, accumulator.call_back_dqn)
 rate = rospy.Rate(3)
 while not rospy.is_shutdown():
     pub = rospy.Publisher('/agent1/mobile_base/commands/velocity', Twist, queue_size=10)
     vel = Twist()
-    # rospy.logwarn(accumulator.act_id)
     if accumulator.act_id == 0:
         # self.move_to_neutral()
         pass
@@ -73,4 +74,4 @@ while not rospy.is_shutdown():
         # self.rotate_left()
         vel.angular.z = 2.0
     pub.publish(vel)
-rate.sleep()
+    rate.sleep()

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import rospy
 from std_msgs.msg import Int16
 from std_msgs.msg import Float32
@@ -16,6 +17,8 @@ from chainerrl.action_value import DiscreteActionValue
 from dqn import DQN
 from network import NatureDQNHead
 
+
+__date__ = '0.1'
 
 rospy.init_node("dqn_walk")
 dir_name = "./"
@@ -55,10 +58,14 @@ pub = rospy.Publisher("dqn_act", Int16, queue_size=10)
 camera_name = "/agent1/camera"
 topic_name_cam = camera_name + "/rgb/image_raw"
 bridge = CvBridge()
-state = None
-reward = None
-next_state = None
+rate = rospy.Rate(3)
 
+'''
+ToDo
+
+- decide done variable
+- decide how to call by variable
+'''
 
 def call_back_cam(data,id):
     if id == 0:
