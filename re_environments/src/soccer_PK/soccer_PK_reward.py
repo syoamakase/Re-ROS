@@ -5,6 +5,8 @@ from std_msgs.msg import Float32
 import numpy as np
 import soccer_PK.utils
 
+# goal 4.5
+
 rospy.init_node("reward")
 pub = rospy.Publisher("reward", Float32, queue_size=10)
 rate = rospy.Rate(3)
@@ -19,6 +21,14 @@ while not rospy.is_shutdown():
         done = False
         # pub.publish(reward)
         ball_locationx ,ball_locationy = soccer_PK.utils.get_ball_location()
+        if ball_locationx > 4.5:
+        	rospy.loginfo("GOAL!!!")
+        	reward = 10
+        	done = True
+        	rospy.set_param("reward_value",[reward, done])
+        	tic = rospy.get_time()
+        	soccer_PK.utils.reset_world()
+        	rospy.sleep(2)
         reward = (ball_prev - ball_locationx) / ball_prev
         if prev_reward != reward:
             rospy.set_param("reward_value",[reward, done])
