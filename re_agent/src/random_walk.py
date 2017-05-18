@@ -15,4 +15,4 @@ rate = rospy.Rate(3)
 while not rospy.is_shutdown():
     act = np.random.randint(5)
     pub.publish(act)
-	rate.sleep()
+    rate.sleep()
