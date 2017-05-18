@@ -75,11 +75,11 @@ def call_back_cam(data,id):
         time = rospy.get_time()
         rospy.set_param("action_value", [int(action), time])
     else:
-        reward = rospy.get_param("/reward_value")
-        action_value, time = rospy.get_param("/agent1/action_value")
-        rospy.logwarn(time)
+        reward, done = rospy.get_param("/reward_value")
+        rospy.logwarn(done)
+        action_value, time = rospy.get_param("/agent1/action_value")      
+        time_now = rospy.get_time()
         next_state = bridge.imgmsg_to_cv2(data, "bgr8")
-        done = False
         agent.add_experience(action_value, reward, next_state, done)
         agent.train()
         agent.stop_episode()
@@ -101,6 +101,6 @@ def call_back_cam(data,id):
     # agent.load(dir_name)
 
 sub0 = rospy.Subscriber(topic_name_cam, Image, call_back_cam, callback_args=0, queue_size=1)
-sub1 = rospy.Subscriber(topic_name_cam, Image, call_back_cam, callback_args=1)
+sub1 = rospy.Subscriber(topic_name_cam, Image, call_back_cam, callback_args=1, queue_size=3)
 
 rospy.spin()
