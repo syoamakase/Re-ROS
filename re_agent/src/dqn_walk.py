@@ -21,7 +21,7 @@ from network import NatureDQNHead
 __date__ = '0.1'
 
 rospy.init_node("dqn_walk")
-dir_name = "./"
+dir_name = "Sei_Ueno_test.model"
 
 """ Set up DQN """
 #n_stat = SoccerEnv.n_stat
@@ -83,6 +83,7 @@ def call_back_cam(data,id):
         agent.add_experience(action_value, reward, next_state, done)
         agent.train()
         agent.stop_episode()
+        # save usually in $HOME/.ros/
         agent.save(dir_name)
         agent.load(dir_name)
     # add experience to replay buffer
