@@ -21,7 +21,7 @@ from network import NatureDQNHead
 __date__ = '0.1'
 
 rospy.init_node("dqn_walk")
-dir_name = "Sei_Ueno_test.model"
+dir_name = "sample_model"
 
 """ Set up DQN """
 #n_stat = SoccerEnv.n_stat
