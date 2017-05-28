@@ -57,7 +57,6 @@ class DQN(agents.double_dqn.DoubleDQN):
         self.average_q += (1 - self.average_q_decay) * q
 
         self.logger.debug('t:%s q:%s action_value:%s', self.t, q, action_value)
-        rospy.logwarn("chainer runs")
         return action
 
     def add_experience(self, action, reward, next_state, done):

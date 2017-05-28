@@ -18,8 +18,8 @@ from chainerrl.action_value import DiscreteActionValue
 from dqn import DQN
 from network import NatureDQNHead
 
-
-__date__ = '0.1'
+__version__ =  '0.2'
+__date__ = '2017/05/28'
 
 rospy.init_node("dqn_walk")
 dir_name = "sample_model"
@@ -64,31 +64,42 @@ class agent_DQN():
         self.test = test
         self.N_episode = 0
 
-
+    # call back from Kinect
     def call_back_cam(self, data,id):
-        if id == 0:
+        # to deside action
+        if id == 0: 
             state = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            # chainer code
             action = self.agent.act(state)
+            
             self.pub.publish(action)
             time = rospy.get_time()
             rospy.set_param("action_value", [int(action), time])
+        # to train chainer
         else:
+            # get data for add_experiment
             reward, done = rospy.get_param("/reward_value") 
             action_value, time = rospy.get_param("/agent1/action_value")      
             time_now = rospy.get_time()
             next_state = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            # chainer code
             self.agent.add_experience(action_value, reward, next_state, done)
             if self.test is False:
                 self.agent.train()
-            rospy.logwarn(done)
+            
+            ### debug
+            # rospy.logwarn(done)
+            ###
+            
+            # end one episode
             if done is True and self.prev_done is not True:
                 self.prev_done = done
                 self.N_episode += 1
                 rospy.logwarn(self.N_episode)
                 self.agent.stop_episode()
-
             self.prev_done = done
 
+            # save the chainer variables
             if self.N_episode % 100 == 0:
                 # save usually in $HOME/.ros/
                 self.agent.save(dir_name)

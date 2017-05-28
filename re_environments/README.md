@@ -20,3 +20,5 @@ soccer\_PK\_reward.py : calcuate reward parameter
 Here includes world files.
 "soccer_field.xml" is the world of Gazebo.
 In "models", there are sdf files which define object.
+
+If you want to use your own world, you put your world and change a launch file in re\_ros

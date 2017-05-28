@@ -9,13 +9,14 @@ Reinforcement Learning using ROS.
 2.make(catkin_make) the packages
 
 3.Start an example
-	`roslaunch re_ros turtlebot_soccerPK.launch`
+	`roslaunch re_ros turtlebot_soccerPK.launch test:=True`
 
 ## Packages
 
 ### re_ros
 
 To choose the environment, agent, rule.
+If you want to change the environment, agent, rule, Change or create re\_ros/launch/***.launch
 
 ### re_environments
 
