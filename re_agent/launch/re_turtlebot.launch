@@ -4,6 +4,7 @@
 
   <arg name="stacks"    value="$(optenv TURTLEBOT_STACKS hexagons)"/>  <!-- circles, hexagons --> 
   <arg name="3d_sensor" value="$(optenv TURTLEBOT_3D_SENSOR kinect)"/>  <!-- kinect, asus_xtion_pro -->
+  <arg name="test" default="False"/>
 
   <group ns="agent1">
     <include file="$(find turtlebot_gazebo)/launch/includes/$(arg base).launch.xml">
@@ -20,7 +21,7 @@
       <param name="publish_frequency" type="double" value="30.0" />
     </node>
     <node pkg="re_agent" name="random_walk" type="random_walk.py" />
-    <node pkg="re_agent" name="dqn_walk" type="dqn_walk.py" />
+    <node pkg="re_agent" name="dqn_walk" args="$(arg test)" type="dqn_walk.py" />
     <node pkg="re_agent" name="suppressor" type="suppressor.py" />
   </group>
 

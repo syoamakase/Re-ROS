@@ -23,10 +23,10 @@ class NatureDQNHead(chainer.ChainList):
         super(NatureDQNHead, self).__init__(*layers)
 
     def __call__(self, state):
-        if type(state) == cp.core.core.ndarray:
-            state = cp.asanyarray(state, dtype=cp.float32)
-        else:
-            state = np.asanyarray(state, dtype=np.float32)
+        # if type(state) == cp.core.core.ndarray:
+        #     state = cp.asanyarray(state, dtype=cp.float32)
+        # else:
+        state = np.asanyarray(state, dtype=np.float32)
         h = state / 255.0
         for layer in self:
             h = self.activation(layer(h))

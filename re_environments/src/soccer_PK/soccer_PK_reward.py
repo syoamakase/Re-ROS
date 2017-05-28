@@ -33,7 +33,7 @@ while not rospy.is_shutdown():
             rospy.set_param("reward_value",[reward, done])
             tic = rospy.get_time()
             soccer_PK.utils.reset_world()
-            rospy.sleep(2)
+            rospy.sleep(1)
         reward = (ball_prev - ball_locationx) / ball_prev
         if prev_reward != reward:
             rospy.set_param("reward_value",[reward, done])

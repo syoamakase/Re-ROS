@@ -42,13 +42,13 @@ class DQN(agents.double_dqn.DoubleDQN):
         self.frame = frame
         self.states = np.zeros((frame, 84, 84), dtype=np.uint8)
 
-    def act(self, state):
+    def act(self, state, test=False):
         self.t += 1
         self.last_states = copy.deepcopy(self.states)
         self.add_states(state)
         with chainer.no_backprop_mode():
             action_value = self.model(
-                self.batch_states([self.states], self.xp, self.phi), test=False)
+                self.batch_states([self.states], self.xp, self.phi), test=test)
             q = float(action_value.max.data)
             action = cuda.to_cpu(action_value.greedy_actions.data)[0]
 

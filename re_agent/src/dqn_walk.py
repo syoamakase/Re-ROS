@@ -6,6 +6,7 @@ from std_msgs.msg import Float32
 from sensor_msgs.msg import Image
 
 import numpy as np
+import sys
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -23,85 +24,84 @@ __date__ = '0.1'
 rospy.init_node("dqn_walk")
 dir_name = "sample_model"
 
-""" Set up DQN """
-#n_stat = SoccerEnv.n_stat
-n_act = 5#SoccerEnv.n_act
 
-n_frame = 4
+class agent_DQN():
+    def __init__(self, test=False):
+        #self.n_stat = SoccerEnv.n_stat
+        self.n_act = 5#SoccerEnv.n_act
+        self.n_frame = 4
+        """ Set up DQN """
+        # q function
+        self.q_func = links.Sequence(
+            NatureDQNHead(self.n_frame),
+            L.Linear(512, self.n_act),
+            DiscreteActionValue
+        )
+        # optimizer
+        self.opt = optimizers.RMSpropGraves(
+            lr=2.5e-4, alpha=0.95, momentum=0.95, eps=1e-2)
+        self.opt.setup(self.q_func)
 
-# q function
-q_func = links.Sequence(
-    NatureDQNHead(n_frame),
-    L.Linear(512, n_act),
-    DiscreteActionValue
-)
+        # Replay Buffer
+        self.rbuf = replay_buffer.ReplayBuffer(10 ** 5)
 
-# optimizer
-opt = optimizers.RMSpropGraves(
-    lr=2.5e-4, alpha=0.95, momentum=0.95, eps=1e-2)
-opt.setup(q_func)
+        # DQN agent
+        self.agent = DQN(self.q_func, self.opt, self.rbuf, gpu=None, gamma=0.99,
+                    explorer=None, replay_start_size=10 ** 4,
+                    target_update_frequency=10 ** 4,
+                    update_frequency=self.n_frame, frame=self.n_frame)
 
-# Replay Buffer
-rbuf = replay_buffer.ReplayBuffer(10 ** 5)
+        """ Set up Publisher """
+        self.pub = rospy.Publisher("dqn_act", Int16, queue_size=10)
 
-# DQN agent
-agent = DQN(q_func, opt, rbuf, gpu=None, gamma=0.99,
-            explorer=None, replay_start_size=10 ** 4,
-            target_update_frequency=10 ** 4,
-            update_frequency=n_frame, frame=n_frame)
+        """ Set up Subscriber """
+        self.camera_name = "/agent1/camera"
+        self.topic_name_cam = self.camera_name + "/rgb/image_raw"
+        self.bridge = CvBridge()
+        self.rate = rospy.Rate(3)
+        
+        self.agent.load(dir_name)
+        self.test = test
+        self.N_episode = 0
 
 
-""" Set up Publisher """
-pub = rospy.Publisher("dqn_act", Int16, queue_size=10)
+    def call_back_cam(self, data,id):
+        if id == 0:
+            state = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            action = self.agent.act(state)
+            self.pub.publish(action)
+            time = rospy.get_time()
+            rospy.set_param("action_value", [int(action), time])
+        else:
+            reward, done = rospy.get_param("/reward_value") 
+            action_value, time = rospy.get_param("/agent1/action_value")      
+            time_now = rospy.get_time()
+            next_state = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            self.agent.add_experience(action_value, reward, next_state, done)
+            if self.test is False:
+                self.agent.train()
+            rospy.logwarn(done)
+            if done is True and self.prev_done is not True:
+                self.prev_done = done
+                self.N_episode += 1
+                rospy.logwarn(self.N_episode)
+                self.agent.stop_episode()
 
-""" Set up Subscriber """
-camera_name = "/agent1/camera"
-topic_name_cam = camera_name + "/rgb/image_raw"
-bridge = CvBridge()
-rate = rospy.Rate(3)
+            self.prev_done = done
 
-'''
-ToDo
+            if self.N_episode % 100 == 0:
+                # save usually in $HOME/.ros/
+                self.agent.save(dir_name)
 
-- decide done variable
-- decide how to call by variable
-'''
 
-def call_back_cam(data,id):
-    if id == 0:
-        state = bridge.imgmsg_to_cv2(data, "bgr8")
-        action = agent.act(state)
-        pub.publish(action)
-        time = rospy.get_time()
-        rospy.set_param("action_value", [int(action), time])
-    else:
-        reward, done = rospy.get_param("/reward_value")
-        rospy.logwarn(done)
-        action_value, time = rospy.get_param("/agent1/action_value")      
-        time_now = rospy.get_time()
-        next_state = bridge.imgmsg_to_cv2(data, "bgr8")
-        agent.add_experience(action_value, reward, next_state, done)
-        agent.train()
-        agent.stop_episode()
-        # save usually in $HOME/.ros/
-        agent.save(dir_name)
-        agent.load(dir_name)
-    # add experience to replay buffer
-    # agent.add_experience(action, reward, next_state, done)
+arg_test = sys.argv[1]
+if arg_test in "False":
+    test = False
+else:
+    test = True
 
-    # train agent
-    # agent.train()
-
-    # refresh at the end of episode
-    # agent.stop_episode()
-
-    # save model
-    # agent.save(dir_name)
-
-    # load model
-    # agent.load(dir_name)
-
-sub0 = rospy.Subscriber(topic_name_cam, Image, call_back_cam, callback_args=0, queue_size=1)
-sub1 = rospy.Subscriber(topic_name_cam, Image, call_back_cam, callback_args=1, queue_size=3)
+ad = agent_DQN(test=test)
+sub0 = rospy.Subscriber(ad.topic_name_cam, Image, ad.call_back_cam, callback_args=0, queue_size=1)
+sub1 = rospy.Subscriber(ad.topic_name_cam, Image, ad.call_back_cam, callback_args=1, queue_size=1)
 
 rospy.spin()
