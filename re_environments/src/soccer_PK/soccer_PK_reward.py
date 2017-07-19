@@ -11,9 +11,11 @@ pub = rospy.Publisher("reward", Float32, queue_size=10)
 rate = rospy.Rate(3)
 rospy.wait_for_service('/gazebo/get_model_state')
 soccer_PK.utils.reset_world()
-# goal 
+
+# intial postion
 ball_prev = 3.25
 episode = 1
+
 while not rospy.is_shutdown():
     tic = rospy.get_time()
     toc = tic
@@ -22,11 +24,14 @@ while not rospy.is_shutdown():
         done = False
         # pub.publish(reward)
         ball_locationx ,ball_locationy = soccer_PK.utils.get_ball_location()
+        # Goal
         if ball_locationx > 4.5:
             rospy.loginfo("GOAL!!!")
+            # save log file ($HOME/.ros/)
             f = open('episode_result.log', 'a')
             f.write('episode'+str(episode)+': 4.5\n')
             f.close()
+            # reset
             episode += 1
             reward = 10
             done = True
@@ -34,6 +39,7 @@ while not rospy.is_shutdown():
             tic = rospy.get_time()
             soccer_PK.utils.reset_world()
             rospy.sleep(1)
+        # if the ball don't achieve goal
         reward = (ball_prev - ball_locationx) / ball_prev
         if prev_reward != reward:
             rospy.set_param("reward_value",[reward, done])
