@@ -1,14 +1,12 @@
 <launch>
   <arg name="test" default="False"/>
 
-
   <include file="$(find re_environments)/launch/soccer.launch"/>
 
   <include file="$(find re_agent)/launch/re_turtlebot.launch">
     <arg name="test" value="$(arg test)"/>
   </include>
 
-  
   <include file="$(find re_rule)/launch/accumulator.launch"/>
 
 </launch>

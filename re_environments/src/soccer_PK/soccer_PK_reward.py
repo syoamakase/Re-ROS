@@ -5,13 +5,13 @@ from std_msgs.msg import Float32
 import numpy as np
 import soccer_PK.utils
 
-# goal 4.5
 
 rospy.init_node("reward")
 pub = rospy.Publisher("reward", Float32, queue_size=10)
 rate = rospy.Rate(3)
 rospy.wait_for_service('/gazebo/get_model_state')
 soccer_PK.utils.reset_world()
+# goal 
 ball_prev = 3.25
 episode = 1
 while not rospy.is_shutdown():
